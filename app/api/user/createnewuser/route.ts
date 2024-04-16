@@ -5,10 +5,12 @@ import { NextRequest, NextResponse } from 'next/server';
 export const POST = async (req: NextRequest) => {
   const {
     email,
-    name,
+    given_name,
+    externalId,
     birthdate,
     username,
     currentLocation,
+    profilePicture,
     hometown,
     profession,
     bio,
@@ -19,10 +21,12 @@ export const POST = async (req: NextRequest) => {
     images
   }: {
     email: string;
-    name: string;
+    externalId: string;
+    given_name: string;
     birthdate: Date;
     username:string;
     currentLocation: string;
+    profilePicture:string;
     hometown: string;
     profession: string;
     bio: string;
@@ -33,7 +37,6 @@ export const POST = async (req: NextRequest) => {
     socialLinks: {
       facebook?: string;
       Instagram?: string;
-      // Add more social links as needed
     };
     interests: string[];
     hobbies: string[];
@@ -44,22 +47,23 @@ export const POST = async (req: NextRequest) => {
     const user = await db.user.create({
       data: {
         email,
-        name,
-        birthdate,
+        externalId,
+        // given_name,
+        // birthdate,
         username,
-        currentLocation,
-        hometown,
-        profession,
-        bio,
-        contactDetails: {
-          create: contactDetails
-        },
-        socialLinks: {
-          create: socialLinks
-        },
-        interests,
-        hobbies,
-        images
+        // currentLocation,
+        // hometown,
+        // profession,
+        // bio,
+        // contactDetails: {
+        //   create: contactDetails
+        // },
+        // socialLinks: {
+        //   create: socialLinks
+        // },
+        // interests,
+        // hobbies,
+        // images
       },
     });
 

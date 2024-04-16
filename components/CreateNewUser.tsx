@@ -9,7 +9,7 @@ const CreateNewUser = () => {
     <>
       <button
         onClick={async () => {
-          await fetch("/api/user", {
+          await fetch("/api/createnewuser/user", {
             body: JSON.stringify({
               email: "ishan@gmail.com",
               name:"ishan",

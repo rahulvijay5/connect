@@ -1,4 +1,5 @@
 import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
+import Image from "next/image";
 import Link from "next/link";
 
 export async function isUserAuthenticated(){
@@ -19,7 +20,16 @@ export async function userDetails(){
     if (!user) {
         return <div>User doesn't exists</div>;
     } else {
-        return true
+        return <div className="flex-center flex-col gap-2 p-4 border-dashed border-2 rounded-md">
+            <div>
+            {user.email}
+            </div>
+            <div className="flex-center  gap-2">
+                {user.given_name} {user.family_name}
+                {user.picture && <Image alt="profile image" height={40} className="rounded-full" width={40} src={user.picture}/>}
+            </div>
+            
+        </div>
     }
 }
 

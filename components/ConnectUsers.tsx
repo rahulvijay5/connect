@@ -8,7 +8,7 @@ const ConnectUsersButton = ({ id1, id2 }:{ id1: string; id2: string }) => {
 
   const handleConnectUsers = async () => {
     try {
-      const response = await fetch('/api/connectusers', {
+      const response = await fetch('/api/user/connectusers', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

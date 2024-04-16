@@ -81,4 +81,15 @@
     align-items: center;
     justify-content: center;
   }
+  .flex-btw {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mfc{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @apply min-h-screen
+  }
 }

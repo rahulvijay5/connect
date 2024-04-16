@@ -10,10 +10,13 @@ generator client {
 
 model User {
   id              String      @id @default(auto()) @map("_id") @db.ObjectId 
+  externalId      String      @unique
+  profilePicture  String?
   createdAt       DateTime    @default(now())
   email           String      @unique
   username        String      @unique
-  name            String?
+  given_name      String?
+  family_name     String?
   birthdate       DateTime?
   currentLocation String?
   hometown        String?
@@ -33,7 +36,7 @@ model ContactDetails {
   user        User        @relation("ContactDetails", fields: [userId], references: [id]) 
   userId      String      @db.ObjectId @unique
 
-  phone       String?
+  phone       String?     @unique
   address     String?
 }
 
@@ -52,6 +55,12 @@ enum Level {
   closest
 }
 
+enum ConnectionStatus{
+  Connected
+  Rejected
+  Pending
+}
+
 model Connection {
   id              String      @id @default(auto()) @map("_id") @db.ObjectId
   createdAt       DateTime    @default(now())
@@ -60,11 +69,14 @@ model Connection {
   userId          String      @db.ObjectId
   connectedUser   User        @relation("ConnectionTo", fields: [connectedUserId], references: [id]) 
   connectedUserId String      @db.ObjectId 
-  level           Level       @default(known)      
+  connectionStatus  ConnectionStatus
+  level           Level       @default(known)
   messages        Message[]
 }
 
-enum Status {
+
+
+enum MessageStatus {
   NotShared
   Shared
 }
@@ -74,7 +86,7 @@ model Message {
   createdAt     DateTime    @default(now())
   timeOfMemory  DateTime?
   content       String
-  status        Status      @default(NotShared)
+  status        MessageStatus      @default(NotShared)
   connection    Connection  @relation(fields: [connectionId], references: [id])
   connectionId  String      @db.ObjectId
 }

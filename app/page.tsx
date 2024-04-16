@@ -1,36 +1,26 @@
-import ConnectUsersButton from "@/components/ConnectUsers";
-import CreateNewUser from "@/components/CreateNewUser";
-import { ModeToggle } from "@/components/ModeToggle";
-import {
-  RegisterLink,
-  LoginLink,
-  LogoutLink,
-} from "@kinde-oss/kinde-auth-nextjs/components";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import { Button } from "@/components/ui/button";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import Link from "next/link";
 
 export default async function Home() {
-  // const isuserauth = isUserAuthenticated();
-  const {isAuthenticated} = getKindeServerSession();
-
-  const isUserAuthenticated = await isAuthenticated()
+  const { isAuthenticated } = getKindeServerSession();
+  const isuserauthenticated = await isAuthenticated();
   return (
     <>
-      <div className="min-h-screen flex-col flex-center gap-4">
-        <ModeToggle />
-
-        <LoginLink>Sign in</LoginLink>
-        <RegisterLink>Sign up</RegisterLink>
-        <LogoutLink>Log out</LogoutLink>
-
-
-        <CreateNewUser/>
-        <ConnectUsersButton id1="661c31c7b6bc3dec5889ef38" id2="661c3947b6bc3dec5889ef3b"/>
-           
+      <Navbar />
+      <div className="flex-col min-h-screen flex-center gap-4">
+        Create homepage for your app here latter...
+        {isuserauthenticated && (
+          <Link href={`/connections`}>
+            <Button variant="link" className="hover:text-sky-500">
+              Connections
+            </Button>
+          </Link>
+        )}
       </div>
-      
-      {/* {isAuthenticated} */}
-      {/* <isUserAuthenticated/> */}
-      
+      <Footer />
     </>
   );
 }
