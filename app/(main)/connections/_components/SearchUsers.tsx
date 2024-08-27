@@ -1,11 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { toast } from "sonner";
+import ConnectUsersButton from "@/components/ConnectUsersButton";
 
 interface User {
   id: string;
@@ -16,19 +19,22 @@ interface User {
   // Add other properties as needed
 }
 
-const SearchUsers = () => {
+interface Props {
+  currentUserID: string;
+}
+
+const SearchUsers: React.FC<Props> = ({ currentUserID }) => {
   const [query, setQuery] = useState("");
-  const [searched, setseached] = useState(false);
+  const [searched, setsearched] = useState(false);
   const [searchResults, setSearchResults] = useState<User[]>([]);
 
   const handleSearch = async () => {
     try {
       const response = await axios.post("/api/user/searchusers", { query });
       setSearchResults(response.data);
-      setseached(true)
+      setsearched(true);
     } catch (error) {
       console.error("Error searching for users:", error);
-      // Handle error
     }
   };
 
@@ -67,11 +73,17 @@ const SearchUsers = () => {
         )}
         {searchResults.map((user) => (
           <div key={user.id} className="border-b-2 pb-2 mb-1 flex-btw gap-2 ">
-            <Image src={`${user.profilePicture}`} alt="profile" height={40} width={40} className="rounded-full"/>
+            <Image
+              src={`${user.profilePicture}`}
+              alt="profile"
+              height={40}
+              width={40}
+              className="rounded-full"
+            />
             <div>
               <p>Email: {user.email}</p>
               <p>Name: {user.given_name}</p>
-              
+              <p>Id: {user.id}</p>
             </div>
 
             <Link href={`/${user.username}`}>
@@ -79,7 +91,7 @@ const SearchUsers = () => {
                 View
               </Button>
             </Link>
-            {/* Render other user details as needed */}
+            <ConnectUsersButton id1={currentUserID} id2={user.id}/>
           </div>
         ))}
       </div>

@@ -8,7 +8,7 @@ import { searchUserByExternalId } from "@/actions/users/searchUsers";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PencilIcon } from "lucide-react";
-import TopRightIcon from "@/components/icons/page";
+import {TopRightIcon} from "@/components/icons/page";
 import { ModeToggle } from "@/components/ModeToggle";
 
 const myprofile = async () => {
@@ -35,7 +35,7 @@ const myprofile = async () => {
               alt="profilePic"
             />
           )}
-          <Link href="/myprofile/edit" className="mt-4">
+          <Link href="/myprofile/myaccount" className="mt-4">
             <Button variant="outline" className="flex-center gap-1">
               Edit Profile <PencilIcon className="h-4 w-4" />
             </Button>

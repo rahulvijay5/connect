@@ -17,16 +17,16 @@ type Action = {
 };
 
 const usePersonStore = create<State & Action>((set) => ({
-  UserId: "India",
+  UserId: "",
   UserName: "",
   UserEmail: "",
   NameOfUser: "",
   ProfilePicture: "",
-  updateUserId: (id) => set({ UserId: id }),
-  updateUserName: (username) => set({ UserName: username }),
-  updateUserEmail: (email) => set({ UserEmail: email }),
-  updateNameOfUser: (name) => set({ UserEmail: name }),
-  updateProfilePicture: (picture) => set({ UserEmail: picture }),
+  updateUserId: (id) => set(() => ({ UserId: id })),
+  updateUserName: (username) => set(() => ({ UserName: username })),
+  updateUserEmail: (email) => set(() => ({ UserEmail: email })),
+  updateNameOfUser: (name) => set(() => ({ UserEmail: name })),
+  updateProfilePicture: (picture) => set(() => ({ UserEmail: picture })),
 }));
 
 export {usePersonStore}

@@ -4,7 +4,7 @@ import { RegisterLink } from "@kinde-oss/kinde-auth-nextjs";
 import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import Logo from "./Logo";
+import {Logo} from "./icons/page";
 
 const Footer = () => {
   return (

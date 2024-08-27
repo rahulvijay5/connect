@@ -1,13 +1,18 @@
-"use client"
+import { Separator } from "@/components/ui/separator";
+import { ProfileForm } from "./profile-form";
 
-import React from 'react'
 
-const editProfile = () => {
+export default function SettingsProfilePage() {
   return (
-    <div className='mfc'>
-        Create a form to edit and update the details of current login user.
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-medium">Profile</h3>
+        <p className="text-sm text-muted-foreground">
+          This is how others will see you on the site.
+        </p>
+      </div>
+      <Separator />
+      <ProfileForm />
     </div>
   )
 }
-
-export default editProfile

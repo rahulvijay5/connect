@@ -3,23 +3,63 @@ import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Link from "next/link";
+import { ArrowRight, Users, UserPlus, Heart } from "lucide-react";
 
 export default async function Home() {
   const { isAuthenticated } = getKindeServerSession();
-  const isuserauthenticated = await isAuthenticated();
+  const isUserAuthenticated = await isAuthenticated();
+
   return (
     <>
       <Navbar />
-      <div className="flex-col min-h-screen flex-center gap-4">
-        Create homepage for your app here latter...
-        {isuserauthenticated && (
-          <Link href={`/connections`}>
-            <Button variant="link" className="hover:text-sky-500">
-              Connections
-            </Button>
-          </Link>
-        )}
-      </div>
+      <main className="flex flex-col items-center justify-center min-h-screen px-4 py-16">
+        <div className="text-center max-w-3xl">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl mb-6">
+            Connect on a Deeper Level
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+            Build meaningful relationships by sharing what matters most with the people who matter most.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
+            {isUserAuthenticated ? (
+              <Link href="/connections">
+                <Button size="lg" className="w-full sm:w-auto">
+                  View Connections <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            ) : (
+              <Link href="/api/auth/login">
+                <Button size="lg" className="w-full sm:w-auto">
+                  Get Started <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            )}
+            <Link href="/about">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                Learn More
+              </Button>
+            </Link>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16">
+          <div className="flex flex-col items-center text-center">
+            <Users className="h-12 w-12 text-sky-500 mb-4" />
+            <h2 className="text-xl font-semibold mb-2">Known</h2>
+            <p className="text-gray-600 dark:text-gray-400">Start building your network with acquaintances.</p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <UserPlus className="h-12 w-12 text-sky-500 mb-4" />
+            <h2 className="text-xl font-semibold mb-2">Closer</h2>
+            <p className="text-gray-600 dark:text-gray-400">Strengthen bonds with friends and colleagues.</p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <Heart className="h-12 w-12 text-sky-500 mb-4" />
+            <h2 className="text-xl font-semibold mb-2">Closest</h2>
+            <p className="text-gray-600 dark:text-gray-400">Share deeply with your inner circle.</p>
+          </div>
+        </div>
+      </main>
       <Footer />
     </>
   );

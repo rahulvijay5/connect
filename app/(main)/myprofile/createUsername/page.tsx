@@ -4,8 +4,9 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { searchUserByExternalId } from "@/actions/users/searchUsers";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import TopRightIcon from "@/components/icons/page";
+import {TopRightIcon} from "@/components/icons/page";
 import { ModeToggle } from "@/components/ModeToggle";
+import UsernameInputForm from "../_components/UsernameInput";
 
 const page = async () => {
   const { getUser } = getKindeServerSession();
@@ -38,7 +39,7 @@ const page = async () => {
   } else {
     return (
       <div className="mfc">
-        <UsernameInput />
+        <UsernameInputForm />
       </div>
     );
   }

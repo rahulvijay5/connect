@@ -8,7 +8,7 @@ import {
   getKindeServerSession,
 } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Button } from "./ui/button";
-import Logo from "./Logo";
+import {Logo} from "./icons/page";
 
 const Navbar = async () => {
   const { isAuthenticated } = getKindeServerSession();

@@ -7,6 +7,7 @@ export const searchUserByExternalId = async (query: string) => {
         externalId: query
       }
     });
+    console.log(user)
     return user
   } catch (error) {
     console.error("Error searching for user.", error);
@@ -33,9 +34,9 @@ export const searchUsers = async (query: string) => {
     const users = await db.user.findMany({
       where: {
         OR: [
-          { email: { contains: query, mode: 'insensitive' } }, // Search by email
-          { given_name: { contains: query, mode: 'insensitive' } }, // Search by name
-          { username: { contains: query, mode: 'insensitive' } } // Search by username (if available)
+          { email: { contains: query, mode: 'insensitive' } },
+          { given_name: { contains: query, mode: 'insensitive' } },
+          { username: { contains: query, mode: 'insensitive' } }
         ]
       }
     });

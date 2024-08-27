@@ -6,10 +6,9 @@ import React from "react";
 // If user is not authenticated then show him a very little sneek peak to the profile, and urge them to login and view complete page of the app.  
 
 const page = async ({ params: { username } }: { params: { username: string } }) => {
-  console.log(username);
   const user = await searchUserByUsername(username)
   return <div className="mfc">
-    {user?.given_name}
+    {user ? user?.given_name : "User doesn't exists"}
   </div>;
 };
 
