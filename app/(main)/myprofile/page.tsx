@@ -1,3 +1,4 @@
+// File: app/myprofile/page.tsx
 import React from "react";
 import Image from "next/image";
 import {
@@ -7,8 +8,8 @@ import {
 import { searchUserByExternalId } from "@/actions/users/searchUsers";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { PencilIcon } from "lucide-react";
-import {TopRightIcon} from "@/components/icons/page";
+import { PencilIcon, PhoneIcon, MapPinIcon } from "lucide-react";
+import { TopRightIcon } from "@/components/icons/page";
 import { ModeToggle } from "@/components/ModeToggle";
 
 const myprofile = async () => {
@@ -42,14 +43,42 @@ const myprofile = async () => {
           </Link>
         </div>
         {userexists?.given_name && userexists?.family_name && (
-          <p className="mt-4">
+          <p className="mt-4 text-2xl font-bold">
             {userexists?.given_name} {userexists?.family_name}
           </p>
         )}
-        {userexists?.email && <p className="mt-2">{userexists?.email}</p>}
-        {userexists?.username && <p className="mt-2">{userexists?.username}</p>}
+        {userexists?.email && <p className="mt-2 text-gray-600">{userexists?.email}</p>}
+        {userexists?.username && <p className="mt-2 text-gray-600">@{userexists?.username}</p>}
+
+        {userexists?.contactDetails?.phone && (
+          <p className="mt-2 flex items-center">
+            <PhoneIcon className="mr-2 h-4 w-4" />
+            {userexists.contactDetails.phone}
+          </p>
+        )}
+
+        {userexists?.contactDetails?.address && (
+          <p className="mt-2 flex items-center">
+            <MapPinIcon className="mr-2 h-4 w-4" />
+            {userexists.contactDetails.address}
+          </p>
+        )}
+
+        {userexists?.interests && userexists.interests.length > 0 && (
+          <div className="mt-4">
+            <p className="font-semibold">Interests:</p>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {userexists.interests.map((interest, index) => (
+                <span key={index} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">
+                  {interest}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="flex gap-2 mt-4">
-          <ModeToggle/>
+          <ModeToggle />
           <Link href={`/connections`}>
             <Button variant="outline" className="hover:text-sky-500">
               My Connections

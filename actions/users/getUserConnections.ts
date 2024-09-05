@@ -1,26 +1,21 @@
 import { db } from "@/lib/db";
-
-interface UserConnection {
-  id: string;
-  userId: string;
-  connectedUserId: string;
-  level: string;
-  connectionStatus: string;
-  createdAt: Date;
-}
+import { Connection } from "@/lib/types";
 
 export const getUserConnections = async (
   userId: string
-): Promise<UserConnection[]> => {
+): Promise<Connection[]> => {
   try {
+    console.log("User Id in get user connections:", userId);
     const connections = await db.connection.findMany({
       where: {
         userId: userId,
-        //   { connectedUserId: userId }, // Connections initiated by others where this user is connected
       },
+      include: {
+        connectedUser: true
+      }
     });
 
-    return connections;
+    return connections as Connection[];
   } catch (error) {
     console.error("Error retrieving user connections:", error);
     throw error;

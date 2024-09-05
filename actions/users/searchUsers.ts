@@ -1,3 +1,4 @@
+// File: actions/users/searchUsers.ts
 import { db } from "@/lib/db";
 
 export const searchUserByExternalId = async (query: string) => {
@@ -5,6 +6,9 @@ export const searchUserByExternalId = async (query: string) => {
     const user = await db.user.findUnique({
       where: {
         externalId: query
+      },
+      include: {
+        contactDetails: true
       }
     });
     console.log(user)
@@ -15,11 +19,17 @@ export const searchUserByExternalId = async (query: string) => {
   }
 };
 
-export const searchUserByUsername = async (query: string) => {
+export const searchUserByUsername = async (username: string) => {
   try {
     const user = await db.user.findUnique({
       where: {
-        username: query
+        username: username
+      },
+      include: {
+        socialLinks: true,
+        connectionsFrom: true,
+        connectionsTo: true,
+        contactDetails: true
       }
     });
     return user;
@@ -29,14 +39,23 @@ export const searchUserByUsername = async (query: string) => {
   }
 };
 
-export const searchUsers = async (query: string) => {
+export const searchUsers = async (query: string, currentUserId: string) => {
   try {
     const users = await db.user.findMany({
       where: {
-        OR: [
-          { email: { contains: query, mode: 'insensitive' } },
-          { given_name: { contains: query, mode: 'insensitive' } },
-          { username: { contains: query, mode: 'insensitive' } }
+        AND: [
+          {
+            OR: [
+              { email: { contains: query, mode: 'insensitive' } },
+              { given_name: { contains: query, mode: 'insensitive' } },
+              { username: { contains: query, mode: 'insensitive' } }
+            ]
+          },
+          {
+            NOT: {
+              externalId: currentUserId
+            }
+          }
         ]
       }
     });

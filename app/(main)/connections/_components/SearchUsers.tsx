@@ -1,14 +1,21 @@
-"use client";
+"use client"
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { toast } from "sonner";
-import ConnectUsersButton from "@/components/ConnectUsersButton";
+import { useState } from 'react';
+import axios from 'axios';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { toast, useToast } from '@/components/ui/use-toast';
+import { Level } from '@prisma/client';
+import ConnectButton from '@/components/ConnectUsersButton';
 
 interface User {
   id: string;
@@ -16,7 +23,6 @@ interface User {
   given_name: string;
   username: string;
   profilePicture: string;
-  // Add other properties as needed
 }
 
 interface Props {
@@ -25,14 +31,16 @@ interface Props {
 
 const SearchUsers: React.FC<Props> = ({ currentUserID }) => {
   const [query, setQuery] = useState("");
-  const [searched, setsearched] = useState(false);
+  const [searched, setSearched] = useState(false);
   const [searchResults, setSearchResults] = useState<User[]>([]);
+
+  const toast = useToast()
 
   const handleSearch = async () => {
     try {
       const response = await axios.post("/api/user/searchusers", { query });
       setSearchResults(response.data);
-      setsearched(true);
+      setSearched(true);
     } catch (error) {
       console.error("Error searching for users:", error);
     }
@@ -46,6 +54,23 @@ const SearchUsers: React.FC<Props> = ({ currentUserID }) => {
     if (event.key === "Enter") {
       handleSearch();
       setQuery("");
+    }
+  };
+
+  const [connectionLevel, setConnectionLevel] = useState<'known' | 'closer' | 'closest'>('known');
+  const handleConnect = async (userId: string) => {
+    try {
+      console.log("From User Id: ", currentUserID, "To user Id: ", userId, "with connection level: ", connectionLevel)
+      const res = await axios.post("/api/user/connectusers", {
+        fromUserId: currentUserID,
+        toUserId: userId,
+        level: connectionLevel
+      });
+      console.log(res)
+      // You might want to update the UI to reflect the sent request
+      alert("Connection request sent!");
+    } catch (error) {
+      console.error("Error sending connection request:", error);
     }
   };
 
@@ -91,7 +116,7 @@ const SearchUsers: React.FC<Props> = ({ currentUserID }) => {
                 View
               </Button>
             </Link>
-            <ConnectUsersButton id1={currentUserID} id2={user.id}/>
+            <ConnectButton toUserId={user.id} />
           </div>
         ))}
       </div>
