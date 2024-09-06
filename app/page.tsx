@@ -4,10 +4,18 @@ import { Button } from "@/components/ui/button";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Link from "next/link";
 import { ArrowRight, Users, UserPlus, Heart } from "lucide-react";
+import { searchUserByExternalId } from "@/actions/users/searchUsers";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const { isAuthenticated } = getKindeServerSession();
+  const { isAuthenticated, getUser } = getKindeServerSession();
   const isUserAuthenticated = await isAuthenticated();
+  const user = await getUser()
+  const userexists = await searchUserByExternalId(user?.id!)
+
+  if (userexists) {
+    redirect("/connections")
+  }
 
   return (
     <>
