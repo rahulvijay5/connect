@@ -63,14 +63,15 @@ const PendingRequests: React.FC<Props> = ({ userId }) => {
       ) : (
         <ul className="space-y-4">
           {requests.map((request) => (
-            <Link href={`/${request.fromUser.username}`} key={request.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border rounded shadow-sm">
-              <div className="mb-2 sm:mb-0">
+            <li key={request.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border rounded shadow-sm">
+              <Link href={`/${request.fromUser.username}`}><div className="mb-2 sm:mb-0">
                 <p className="font-medium">{request.fromUser.given_name} ({request.fromUser.email})</p>
                 <p className="text-sm text-gray-500">Level: {request.level}</p>
               </div>
+              </Link>
               <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                 {acceptedRequests.includes(request.id) ? (
-                  <ConnectButton toUserId={request.fromUser.id} />
+                  <ConnectButton initialConnectionStatus={true} toUserId={request.fromUser.id} />
                 ) : (
                   <>
                     <Button onClick={() => handleRequest(request.id, 'accept')} variant="default">
@@ -82,7 +83,7 @@ const PendingRequests: React.FC<Props> = ({ userId }) => {
                   </>
                 )}
               </div>
-            </Link>
+            </li>
           ))}
         </ul>
       )

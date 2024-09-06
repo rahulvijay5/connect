@@ -54,17 +54,19 @@ const SentRequests: React.FC<Props> = ({ userId }) => {
             ) : (
                 <ul className="space-y-2">
                     {requests.map((request) => (
-                        <Link href={`/${request.toUser.username}`} key={request.id} className="flex items-center justify-between p-2 border rounded">
-                            <div>
-                                <p>{request.toUser.given_name} ({request.toUser.email})</p>
-                                <p className="text-sm text-gray-500">Level: {request.level}</p>
-                                <p className="text-sm text-gray-500">Status: {request.status}</p>
-                                <p className="text-sm text-gray-500">Username: {request.toUser.username}</p>
-                            </div>
+                        <li key={request.id} className="flex items-center justify-between p-2 border rounded">
+                            <Link href={`/${request.toUser.username}`}>
+                                <div>
+                                    <p>{request.toUser.given_name} ({request.toUser.email})</p>
+                                    <p className="text-sm text-gray-500">Level: {request.level}</p>
+                                    <p className="text-sm text-gray-500">Status: {request.status}</p>
+                                    <p className="text-sm text-gray-500">Username: {request.toUser.username}</p>
+                                </div>
+                            </Link>
                             <Button onClick={() => cancelRequest(request.id)} variant="destructive">
                                 Cancel Request
                             </Button>
-                        </Link>
+                        </li>
                     ))
                     }
                 </ul >

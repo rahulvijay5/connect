@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
+import { searchUserByExternalId } from "@/actions/users/searchUsers"
 
 export async function DELETE(
     req: NextRequest,
@@ -9,6 +10,7 @@ export async function DELETE(
 ) {
     const { getUser } = getKindeServerSession()
     const user = await getUser()
+    const userexists = await searchUserByExternalId(user?.id!)
 
     if (!user) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -19,7 +21,7 @@ export async function DELETE(
             where: { id: params.requestId },
         })
 
-        if (!request || request.fromUserId !== user.id) {
+        if (!request || request.fromUserId !== userexists?.id) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
         }
 
