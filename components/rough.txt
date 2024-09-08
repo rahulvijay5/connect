@@ -1,0 +1,20 @@
+Footer navlinks:
+
+
+homepage:
+    createupdate
+    updates from connection
+
+Search:
+    search users, show connections
+
+createupdate:
+    createupdate
+    myupdates
+
+shareprofile:
+    Share Profile
+    (later based on level and already accepted)
+
+myprofile:
+    Show myprofile

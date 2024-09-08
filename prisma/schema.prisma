@@ -24,6 +24,7 @@ model User {
   contactDetails   ContactDetails? @relation("ContactDetails")
   socialLinks      SocialLinks?    @relation("SocialLinks")
   interests        String[]
+  skills           String[]
   hobbies          String[]
   images           String[]
   connectionsFrom  Connection[]    @relation("ConnectionFrom")
@@ -47,15 +48,17 @@ model SocialLinks {
   user   User   @relation("SocialLinks", fields: [userId], references: [id])
   userId String @unique @db.ObjectId
 
-  facebook  String?
-  instagram String?
-  linkedIn  String?
-  github    String?
-  twitter   String?
-  website   String?
-  snapchat  String?
-  behance   String?
-  tiktok    String?
+  facebook    String?
+  instagram   String?
+  linkedIn    String?
+  github      String?
+  twitter     String?
+  website     String?
+  snapchat    String?
+  behance     String?
+  tiktok      String?
+  whatsapp    String?
+  customLinks Json?
 }
 
 enum Level {

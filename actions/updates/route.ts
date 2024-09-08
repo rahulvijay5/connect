@@ -7,6 +7,8 @@ import { JSDOM } from 'jsdom'
 import { subDays } from 'date-fns'
 import fetch from 'node-fetch'
 import { searchUserByExternalId } from '../users/searchUsers'
+import { Redis } from 'ioredis'
+import redis from '@/lib/redis'
 
 type LinkPreview = {
     url: string;
@@ -20,6 +22,7 @@ type EnrichedUpdate = Update & {
     user: {
         given_name: string | null;
         family_name: string | null;
+        username: string;
     };
 };
 
@@ -71,6 +74,7 @@ export async function getMyUpdates(page: number = 1, limit: number = 10): Promis
                 select: {
                     given_name: true,
                     family_name: true,
+                    username: true,
                 },
             },
         },
@@ -100,6 +104,7 @@ export async function getConnectionUpdates(userId: string, connectionLevel: Leve
                 select: {
                     given_name: true,
                     family_name: true,
+                    username: true,
                 },
             },
         },
@@ -138,6 +143,8 @@ export async function getRecentUpdates(page: number = 1, limit: number = 6): Pro
 
     const sevenDaysAgo = subDays(new Date(), 7)
 
+    const viewedUpdateIds = await redis.smembers(`user:${dbUser.id}:viewed_updates`)
+
     const updates = await db.update.findMany({
         where: {
             userId: {
@@ -152,12 +159,16 @@ export async function getRecentUpdates(page: number = 1, limit: number = 6): Pro
                     return levels.slice(0, levels.indexOf(conn.level) + 1)
                 }).flat(),
             },
+            id: {
+                notIn: viewedUpdateIds,
+            },
         },
         include: {
             user: {
                 select: {
                     given_name: true,
                     family_name: true,
+                    username: true
                 },
             },
         },
@@ -171,7 +182,11 @@ export async function getRecentUpdates(page: number = 1, limit: number = 6): Pro
     return await enrichUpdatesWithLinkPreviews(updates)
 }
 
-async function enrichUpdatesWithLinkPreviews(updates: (Update & { user: { given_name: string | null; family_name: string | null } })[]): Promise<EnrichedUpdate[]> {
+export async function markUpdateAsViewed(userId: string, updateId: string) {
+    await redis.sadd(`user:${userId}:viewed_updates`, updateId)
+}
+
+async function enrichUpdatesWithLinkPreviews(updates: (Update & { user: { given_name: string | null; family_name: string | null; username: string } })[]): Promise<EnrichedUpdate[]> {
     const enrichedUpdates = await Promise.all(updates.map(async (update) => {
         const urls = extractUrls(update.content)
         const previews = await Promise.all(urls.map(getLinkPreview))
@@ -201,4 +216,27 @@ async function getLinkPreview(url: string): Promise<LinkPreview | null> {
         console.error(`Error fetching link preview for ${url}:`, error)
         return null
     }
+}
+
+export async function getUserUpdates(username: string, page: number = 1, limit: number = 10) {
+    const updates = await db.update.findMany({
+        where: {
+            userId: username,
+        },
+        include: {
+            user: {
+                select: {
+                    given_name: true,
+                    family_name: true,
+                },
+            },
+        },
+        orderBy: {
+            createdAt: 'desc',
+        },
+        take: limit,
+        skip: (page - 1) * limit,
+    })
+
+    return updates
 }

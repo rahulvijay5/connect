@@ -19,8 +19,16 @@ const nextConfig = {
         hostname: "api.dicebear.com",
       },
       {
+        protocol: "https",
+        hostname: "pub-d85e7dd777704ae4878882e09e0e3200.r2.dev",
+      },
+      {
         protocol: "http",
         hostname: "localhost",
+      },
+      {
+        protocol: "https",
+        hostname: "gravatar.com",
       },
     ],
   },

@@ -1,21 +1,28 @@
 // File: actions/users/searchUsers.ts
 import { db } from "@/lib/db";
 
-export const searchUserByExternalId = async (query: string) => {
+export const searchUserByExternalId = async (kindeId: string) => {
   try {
+    // console.log("KindeID: ", kindeId)
     const user = await db.user.findUnique({
       where: {
-        externalId: query
+        externalId: kindeId
       },
       include: {
-        contactDetails: true
+        contactDetails: true,
+        connectionsFrom:true,
+        connectionsTo:true,
+        socialLinks:true,
+        sentRequests:true,
+        receivedRequests:true,
+        updates:true,
       }
     });
     console.log(user)
     return user
   } catch (error) {
-    console.error("Error searching for user.", error);
-    throw new Error("Error searching for users");
+    console.error("Error searching for user:", error);
+    throw error;
   }
 };
 

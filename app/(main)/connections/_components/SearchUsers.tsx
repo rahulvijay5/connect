@@ -1,21 +1,13 @@
-"use client"
+"use client";
 
-import { useState } from 'react';
-import axios from 'axios';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { toast, useToast } from '@/components/ui/use-toast';
-import { Level } from '@prisma/client';
-import ConnectButton from '@/components/ConnectUsersButton';
+import { useState } from "react";
+import axios from "axios";
+import Image from "next/image";
+import Link from "next/link";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { toast, useToast } from "@/components/ui/use-toast";
+import ConnectButton from "@/components/ConnectUsersButton";
 
 interface User {
   id: string;
@@ -34,7 +26,7 @@ const SearchUsers: React.FC<Props> = ({ currentUserID }) => {
   const [searched, setSearched] = useState(false);
   const [searchResults, setSearchResults] = useState<User[]>([]);
 
-  const toast = useToast()
+  const toast = useToast();
 
   const handleSearch = async () => {
     try {
@@ -57,16 +49,25 @@ const SearchUsers: React.FC<Props> = ({ currentUserID }) => {
     }
   };
 
-  const [connectionLevel, setConnectionLevel] = useState<'known' | 'closer' | 'closest'>('known');
+  const [connectionLevel, setConnectionLevel] = useState<
+    "known" | "closer" | "closest"
+  >("known");
   const handleConnect = async (userId: string) => {
     try {
-      console.log("From User Id: ", currentUserID, "To user Id: ", userId, "with connection level: ", connectionLevel)
+      console.log(
+        "From User Id: ",
+        currentUserID,
+        "To user Id: ",
+        userId,
+        "with connection level: ",
+        connectionLevel
+      );
       const res = await axios.post("/api/user/connectusers", {
         fromUserId: currentUserID,
         toUserId: userId,
-        level: connectionLevel
+        level: connectionLevel,
       });
-      console.log(res)
+      console.log(res);
       // You might want to update the UI to reflect the sent request
       alert("Connection request sent!");
     } catch (error) {
@@ -97,13 +98,16 @@ const SearchUsers: React.FC<Props> = ({ currentUserID }) => {
           </div>
         )}
         {searchResults.map((user) => (
-          <div key={user.id} className="border-b-2 pb-2 mb-1 flex-btw gap-2 ">
+          <div
+            key={user.id}
+            className="border-b-2 pb-2 mb-1 flex-btw gap-2 flex-wrap"
+          >
             <Image
               src={`${user.profilePicture}`}
               alt="profile"
-              height={40}
-              width={40}
-              className="rounded-full"
+              height={100}
+              width={100}
+              className="rounded-full w-12 h-12 object-cover"
             />
             <div>
               <p>Email: {user.email}</p>

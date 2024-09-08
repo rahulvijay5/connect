@@ -21,3 +21,19 @@ export const getUserConnections = async (
     throw error;
   }
 };
+
+export async function getConnectionLevel(
+  currentUserId: string,
+  profileUserId: string
+) {
+  const connection = await db.connection.findFirst({
+    where: {
+      OR: [
+        { userId: currentUserId, connectedUserId: profileUserId },
+        // { fromUserId: profileUserId, toUserId: currentUserId },
+      ],
+    },
+  });
+
+  return connection?.level || null;
+}

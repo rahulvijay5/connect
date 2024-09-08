@@ -110,89 +110,132 @@
 
 // export default EditProfile
 
+"use client";
 
-'use client'
-
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Calendar } from "@/components/ui/calendar"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
-import { ChevronRight, ChevronLeft, Lock, Shield } from 'lucide-react'
-import { updateProfile } from '@/actions/users/updateUserProfile'
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+// import { Calendar } from "@/components/ui/calendar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { ChevronRight, ChevronLeft, Lock, Shield } from "lucide-react";
+import { updateProfile } from "@/actions/users/updateUserProfile";
+import { Calendar } from "@nextui-org/calendar";
 
 const socialPlatforms = [
-  'facebook', 'instagram', 'twitter', 'linkedIn', 'gitHub',
-  'behance', 'tikTok', 'snapchat', 'website'
-]
+  "facebook",
+  "instagram",
+  "twitter",
+  "linkedIn",
+  "gitHub",
+  "behance",
+  "tiktok",
+  "snapchat",
+  "website",
+];
 
 const interests = [
-  'Technology', 'Sports', 'Music', 'Art', 'Travel',
-  'Food', 'Fashion', 'Photography', 'Reading', 'Gaming'
-]
+  "Technology",
+  "Sports",
+  "Music",
+  "Art",
+  "Travel",
+  "Food",
+  "Fashion",
+  "Photography",
+  "Reading",
+  "Gaming",
+];
 
 const hobbies = [
-  'Cooking', 'Gardening', 'Hiking', 'Painting', 'Dancing',
-  'Writing', 'Yoga', 'Cycling', 'Meditation', 'Volunteering'
-]
+  "Cooking",
+  "Gardening",
+  "Hiking",
+  "Painting",
+  "Dancing",
+  "Writing",
+  "Yoga",
+  "Cycling",
+  "Meditation",
+  "Volunteering",
+];
 
-type FormDataKeys = 'birthdate' | 'currentLocation' | 'hometown' | 'profession' | 'bio' | 'phone' | 'address' | 'interests' | 'hobbies' | 'socialLinks';
+type FormDataKeys =
+  | "birthdate"
+  | "currentLocation"
+  | "hometown"
+  | "profession"
+  | "bio"
+  | "phone"
+  | "address"
+  | "interests"
+  | "hobbies"
+  | "socialLinks";
 
 const EditProfile = () => {
-  const router = useRouter()
-  const [step, setStep] = useState(0)
+  const router = useRouter();
+  const [step, setStep] = useState(0);
   const [formData, setFormData] = useState({
     birthdate: null,
-    currentLocation: '',
-    hometown: '',
-    profession: '',
-    bio: '',
-    phone: '',
-    address: '',
+    currentLocation: "",
+    hometown: "",
+    profession: "",
+    bio: "",
+    phone: "",
+    address: "",
     interests: [] as string[],
     hobbies: [] as string[],
-    socialLinks: {} as Record<string, string>
-  })
+    socialLinks: {} as Record<string, string>,
+  });
 
   const handleInputChange = (field: string, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
-  const handleArrayInputChange = (field: FormDataKeys, value: string, checked: boolean) => {
-    setFormData(prev => ({
+  const handleArrayInputChange = (
+    field: FormDataKeys,
+    value: string,
+    checked: boolean
+  ) => {
+    setFormData((prev) => ({
       ...prev,
       [field]: Array.isArray(prev[field]) // Ensure the field is an array
         ? checked
           ? [...prev[field], value]
           : prev[field].filter((item: string) => item !== value)
-        : [] // Default to an empty array if not an array
-    }))
-  }
+        : [], // Default to an empty array if not an array
+    }));
+  };
 
   const handleSocialLinkChange = (platform: string, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      socialLinks: { ...prev.socialLinks, [platform]: value }
-    }))
-  }
+      socialLinks: { ...prev.socialLinks, [platform]: value },
+    }));
+  };
 
   const handleSubmit = async () => {
     try {
-      await updateProfile(formData)
-      router.push('/myprofile')
+      await updateProfile(formData);
+      router.push("/myprofile");
     } catch (error) {
-      console.error('Error updating profile:', error)
+      console.error("Error updating profile:", error);
     }
-  }
+  };
 
   const steps = [
     {
-      title: 'Welcome',
+      title: "Welcome",
       content: (
         <motion.div
           initial={{ opacity: 0 }}
@@ -202,12 +245,14 @@ const EditProfile = () => {
         >
           <Shield className="w-16 h-16 mx-auto text-primary" />
           <h1 className="text-3xl font-bold">Your Privacy Matters</h1>
-          <p className="text-xl">We keep your data secure and never share it without your permission.</p>
+          <p className="text-xl">
+            We keep your data secure and never share it without your permission.
+          </p>
         </motion.div>
-      )
+      ),
     },
     {
-      title: 'Basic Info',
+      title: "Basic Info",
       content: (
         <motion.div
           initial={{ opacity: 0 }}
@@ -217,11 +262,18 @@ const EditProfile = () => {
         >
           <div>
             <Label htmlFor="birthdate">Birthdate</Label>
-            <Calendar
+            {/* <Calendar
               mode="single"
               selected={formData.birthdate || undefined} // Ensure birthdate is not null
-              onSelect={(date) => handleInputChange('birthdate', date)}
+              onSelect={(date) => handleInputChange("birthdate", date)}
               className="rounded-md border"
+            /> */}
+            <Calendar
+              focusedValue={formData.birthdate || undefined} // Ensure birthdate is not null
+              onSelect={(date) => handleInputChange("birthdate", date)}
+              className="rounded-md border"
+              aria-label="Date (Show Month and Year Picker)"
+              showMonthAndYearPickers
             />
           </div>
           <div>
@@ -229,15 +281,15 @@ const EditProfile = () => {
             <Input
               id="profession"
               value={formData.profession}
-              onChange={(e) => handleInputChange('profession', e.target.value)}
+              onChange={(e) => handleInputChange("profession", e.target.value)}
               placeholder="What do you do?"
             />
           </div>
         </motion.div>
-      )
+      ),
     },
     {
-      title: 'Location',
+      title: "Location",
       content: (
         <motion.div
           initial={{ opacity: 0 }}
@@ -250,7 +302,9 @@ const EditProfile = () => {
             <Input
               id="currentLocation"
               value={formData.currentLocation}
-              onChange={(e) => handleInputChange('currentLocation', e.target.value)}
+              onChange={(e) =>
+                handleInputChange("currentLocation", e.target.value)
+              }
               placeholder="Where are you based?"
             />
           </div>
@@ -259,15 +313,15 @@ const EditProfile = () => {
             <Input
               id="hometown"
               value={formData.hometown}
-              onChange={(e) => handleInputChange('hometown', e.target.value)}
+              onChange={(e) => handleInputChange("hometown", e.target.value)}
               placeholder="Where are you from?"
             />
           </div>
         </motion.div>
-      )
+      ),
     },
     {
-      title: 'Bio',
+      title: "Bio",
       content: (
         <motion.div
           initial={{ opacity: 0 }}
@@ -280,16 +334,16 @@ const EditProfile = () => {
             <Textarea
               id="bio"
               value={formData.bio}
-              onChange={(e) => handleInputChange('bio', e.target.value)}
+              onChange={(e) => handleInputChange("bio", e.target.value)}
               placeholder="Tell us about yourself"
               rows={5}
             />
           </div>
         </motion.div>
-      )
+      ),
     },
     {
-      title: 'Contact Details',
+      title: "Contact Details",
       content: (
         <motion.div
           initial={{ opacity: 0 }}
@@ -303,7 +357,7 @@ const EditProfile = () => {
               id="phone"
               type="tel"
               value={formData.phone}
-              onChange={(e) => handleInputChange('phone', e.target.value)}
+              onChange={(e) => handleInputChange("phone", e.target.value)}
               placeholder="Your phone number"
             />
           </div>
@@ -312,16 +366,16 @@ const EditProfile = () => {
             <Textarea
               id="address"
               value={formData.address}
-              onChange={(e) => handleInputChange('address', e.target.value)}
+              onChange={(e) => handleInputChange("address", e.target.value)}
               placeholder="Your address"
               rows={3}
             />
           </div>
         </motion.div>
-      )
+      ),
     },
     {
-      title: 'Interests',
+      title: "Interests",
       content: (
         <motion.div
           initial={{ opacity: 0 }}
@@ -335,17 +389,23 @@ const EditProfile = () => {
                 <Checkbox
                   id={interest}
                   checked={formData.interests.includes(interest)}
-                  onCheckedChange={(checked) => handleArrayInputChange('interests', interest, checked as boolean)}
+                  onCheckedChange={(checked) =>
+                    handleArrayInputChange(
+                      "interests",
+                      interest,
+                      checked as boolean
+                    )
+                  }
                 />
                 <Label htmlFor={interest}>{interest}</Label>
               </div>
             ))}
           </div>
         </motion.div>
-      )
+      ),
     },
     {
-      title: 'Hobbies',
+      title: "Hobbies",
       content: (
         <motion.div
           initial={{ opacity: 0 }}
@@ -359,17 +419,19 @@ const EditProfile = () => {
                 <Checkbox
                   id={hobby}
                   checked={formData.hobbies.includes(hobby)}
-                  onCheckedChange={(checked) => handleArrayInputChange('hobbies', hobby, checked as boolean)}
+                  onCheckedChange={(checked) =>
+                    handleArrayInputChange("hobbies", hobby, checked as boolean)
+                  }
                 />
                 <Label htmlFor={hobby}>{hobby}</Label>
               </div>
             ))}
           </div>
         </motion.div>
-      )
+      ),
     },
     {
-      title: 'Social Links',
+      title: "Social Links",
       content: (
         <motion.div
           initial={{ opacity: 0 }}
@@ -377,21 +439,27 @@ const EditProfile = () => {
           exit={{ opacity: 0 }}
           className="space-y-4"
         >
+          <div>
+            Add Social Links so that people do remain connected to you
+            throughout.
+          </div>
           {socialPlatforms.map((platform) => (
             <div key={platform}>
               <Label htmlFor={platform}>{platform}</Label>
               <Input
                 id={platform}
-                value={formData.socialLinks[platform] || ''}
-                onChange={(e) => handleSocialLinkChange(platform, e.target.value)}
+                value={formData.socialLinks[platform] || ""}
+                onChange={(e) =>
+                  handleSocialLinkChange(platform, e.target.value)
+                }
                 placeholder={`Your ${platform} URL`}
               />
             </div>
           ))}
         </motion.div>
-      )
-    }
-  ]
+      ),
+    },
+  ];
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-100 to-purple-100 dark:from-gray-800 dark:to-gray-900">
@@ -426,7 +494,7 @@ const EditProfile = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default EditProfile
+export default EditProfile;
