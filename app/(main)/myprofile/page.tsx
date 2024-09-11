@@ -43,13 +43,13 @@ const MyProfile = async () => {
   };
 
   return (
-    <div className="min-h-screen w-full pb-8 md:px-20">
+    <div className="w-full pb-8 md:px-4 bg-white dark:bg-slate-950 text-slate-900 dark:text-white">
       <div className="h-[30vh] relative w-full">
         <div className="absolute top-4 p-2 left-0 w-full flex items-center justify-between gap-4 z-20">
           <div className="flex gap-2 items-center">
             <BackButton showtext={false} />
             {userexists.username && (
-              <p className="text-muted-foreground text-lg">
+              <p className="text-slate-600 dark:text-slate-400 text-lg">
                 @{userexists.username}
               </p>
             )}
@@ -64,11 +64,11 @@ const MyProfile = async () => {
         <BackgroundBeams />
       </div>
 
-      <div className="px-4 md:px-8 lg:px-12 xl:px-20 z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="px-4 md:px-8 lg:px-12 z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-6">
           {/* Left Column */}
           <div className="lg:col-span-1">
-            <div className="w-full p-6 flex flex-col items-center border-b-2 bg-gradient-to-b from-inherit to-slate-900 border-slate-800 mb-6">
+            <div className="w-full p-6 flex flex-col items-center border-b-2 bg-gradient-to-b from-white to-slate-100 dark:from-slate-900 dark:to-slate-950 border-slate-200 dark:border-slate-800 mb-6">
               <ProfileImageUploader
                 initialImageUrl={userexists.profilePicture || ""}
                 userName={userexists.given_name || userexists.username}
@@ -80,33 +80,33 @@ const MyProfile = async () => {
                 </p>
               )}
               {userexists.bio && (
-                <p className="mt-2 text-gray-600 text-center">
+                <p className="mt-2 text-slate-600 dark:text-slate-400 text-center">
                   {userexists.bio}
                 </p>
               )}
               <SocialLinks links={socialLinksData} />
             </div>
 
-            <div className="w-full p-6 flex flex-col items-center rounded-lg border-2 bg-slate-900 border-slate-800 mb-6">
+            <div className="w-full p-6 flex flex-col items-center rounded-lg border-2 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 mb-6">
               <div className="grid grid-cols-3 gap-4 w-full">
-                <div className="p-4 flex flex-col items-center rounded-lg bg-slate-950 border-slate-900">
-                  <p className="text-center text-muted-foreground text-sm">
+                <div className="p-4 flex flex-col items-center rounded-lg bg-slate-100 dark:bg-slate-950 border-slate-200 dark:border-slate-900">
+                  <p className="text-center text-slate-600 dark:text-slate-400 text-sm">
                     Shared
                   </p>
                   <p className="font-bold text-xl mt-2">
                     {userexists.connectionsTo.length}
                   </p>
                 </div>
-                <div className="p-4 flex flex-col items-center rounded-lg bg-slate-950 border-slate-900">
-                  <p className="text-center text-muted-foreground text-sm">
+                <div className="p-4 flex flex-col items-center rounded-lg bg-slate-100 dark:bg-slate-950 border-slate-200 dark:border-slate-900">
+                  <p className="text-center text-slate-600 dark:text-slate-400 text-sm">
                     Connected
                   </p>
                   <p className="font-bold text-xl mt-2">
                     {userexists.connectionsFrom?.length}
                   </p>
                 </div>
-                <div className="p-4 flex flex-col items-center rounded-lg bg-slate-950 border-slate-900">
-                  <p className="text-center text-muted-foreground text-sm">
+                <div className="p-4 flex flex-col items-center rounded-lg bg-slate-100 dark:bg-slate-950 border-slate-200 dark:border-slate-900">
+                  <p className="text-center text-slate-600 dark:text-slate-400 text-sm">
                     Updates
                   </p>
                   <p className="font-bold text-xl mt-2">
@@ -134,7 +134,7 @@ const MyProfile = async () => {
 
           {/* Middle Column */}
           <div className="lg:col-span-1">
-            <div className="w-full p-6 flex flex-col items-start rounded-lg border-2 bg-slate-900 border-slate-800 mb-6">
+            <div className="w-full p-6 flex flex-col items-start rounded-lg border-2 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 mb-6">
               <h3 className="text-xl font-semibold mb-4">
                 Contact Information
               </h3>
@@ -145,7 +145,7 @@ const MyProfile = async () => {
                 </p>
               )}
               {userexists.email && (
-                <p className="mt-2 flex items-center text-gray-600 select-all">
+                <p className="mt-2 flex items-center text-slate-600 dark:text-slate-400 select-all">
                   <Mail className="mr-2 h-4 w-4" />
                   {userexists.email}
                 </p>
@@ -161,7 +161,7 @@ const MyProfile = async () => {
               )}
             </div>
 
-            <div className="w-full p-6 flex flex-col items-start rounded-lg border-2 bg-slate-900 border-slate-800 mb-6">
+            <div className="w-full p-6 flex flex-col items-start rounded-lg border-2 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 mb-6">
               <h3 className="text-xl font-semibold mb-4 flex items-center">
                 <MapPinIcon className="mr-2 h-5 w-5" />
                 Location
@@ -169,19 +169,25 @@ const MyProfile = async () => {
               <div className="w-full space-y-4">
                 {userexists.currentLocation && (
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Current City</span>
+                    <span className="text-slate-600 dark:text-slate-400">
+                      Current City
+                    </span>
                     <span>{userexists.currentLocation}</span>
                   </div>
                 )}
                 {userexists.hometown && (
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Hometown</span>
+                    <span className="text-slate-600 dark:text-slate-400">
+                      Hometown
+                    </span>
                     <span>{userexists.hometown}</span>
                   </div>
                 )}
                 {userexists.contactDetails?.address && (
                   <div className="flex justify-between gap-2">
-                    <span className="text-muted-foreground">Address</span>
+                    <span className="text-slate-600 dark:text-slate-400">
+                      Address
+                    </span>
                     <span className="text-right">
                       {userexists.contactDetails.address}
                     </span>
@@ -194,8 +200,7 @@ const MyProfile = async () => {
           {/* Right Column */}
           <div className="lg:col-span-1">
             {true && (
-              // {userexists.images && userexists.images.length > 0 && (
-              <div className="w-full p-6 flex flex-col items-start rounded-lg border-2 bg-slate-900 border-slate-800 mb-6">
+              <div className="w-full p-6 flex flex-col items-start rounded-lg border-2 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 mb-6">
                 <h3 className="text-xl font-semibold mb-4 flex items-center">
                   <PanelsRightBottom className="mr-2 h-5 w-5" />
                   Gallery
@@ -216,13 +221,13 @@ const MyProfile = async () => {
             )}
 
             {userexists.skills && userexists.skills.length > 0 && (
-              <div className="w-full p-6 flex flex-col items-start rounded-lg border-2 bg-slate-900 border-slate-800 mb-6">
+              <div className="w-full p-6 flex flex-col items-start rounded-lg border-2 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 mb-6">
                 <h3 className="text-xl font-semibold mb-4">Skills</h3>
                 <div className="flex flex-wrap gap-2">
                   {userexists.skills.map((skill, index) => (
                     <span
                       key={index}
-                      className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-md font-mono text-sm"
+                      className="bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100 px-2 py-1 rounded-md font-mono text-sm"
                     >
                       {skill}
                     </span>
@@ -232,13 +237,13 @@ const MyProfile = async () => {
             )}
 
             {userexists.interests && userexists.interests.length > 0 && (
-              <div className="w-full p-6 flex flex-col items-start rounded-lg border-2 bg-slate-900 border-slate-800 mb-6">
+              <div className="w-full p-6 flex flex-col items-start rounded-lg border-2 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 mb-6">
                 <h3 className="text-xl font-semibold mb-4">Interests</h3>
                 <div className="flex flex-wrap gap-2">
                   {userexists.interests.map((interest, index) => (
                     <span
                       key={index}
-                      className="bg-blue-100 text-blue-800 px-2 py-1 rounded-md font-mono text-sm"
+                      className="bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100 px-2 py-1 rounded-md font-mono text-sm"
                     >
                       {interest}
                     </span>
@@ -248,13 +253,13 @@ const MyProfile = async () => {
             )}
 
             {userexists.hobbies && userexists.hobbies.length > 0 && (
-              <div className="w-full p-6 flex flex-col items-start rounded-lg border-2 bg-slate-900 border-slate-800 mb-6">
+              <div className="w-full p-6 flex flex-col items-start rounded-lg border-2 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 mb-6">
                 <h3 className="text-xl font-semibold mb-4">Hobbies</h3>
                 <div className="flex flex-wrap gap-2">
                   {userexists.hobbies.map((hobby, index) => (
                     <span
                       key={index}
-                      className="bg-emerald-100 text-emerald-800 px-2 py-1 rounded-md font-mono text-sm"
+                      className="bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100 px-2 py-1 rounded-md font-mono text-sm"
                     >
                       {hobby}
                     </span>
@@ -262,10 +267,6 @@ const MyProfile = async () => {
                 </div>
               </div>
             )}
-
-            {/* <div className="w-full mb-6">
-              <CreateUpdate />
-            </div> */}
           </div>
         </div>
 

@@ -64,22 +64,25 @@ export default function ShareProfilePage() {
   }
 
   if (!profileUser || profileUser.username !== username) {
-    return <div>You don't have permission to share this profile.</div>;
+    return <div>You don&apos;t have permission to share this profile.</div>;
   }
 
   const shareUrl = `${process.env.NEXT_PUBLIC_APP_URL}/${profileUser.username}?share=true`;
 
   return (
-    <div className="container mfc flex-col">
+    <div className="w-screen sm:w-full px-4 py-8 overflow-hidden relative">
       <div className="w-full max-w-2xl flex justify-between mb-2">
-        <BackButton showtext={true} />
-        <Link href={"/myprofile"}>
+        <div className="flex  w-full items-center my-2 justify-start">
+          <BackButton showtext={false} />
+          <h1 className="text-2xl font-bold">Search Users</h1>
+        </div>
+        {/* <Link href={"/myprofile"}>
           <Button variant={"outline"} size={"icon"}>
             <User className="h-6 w-6" />
           </Button>
-        </Link>
+        </Link> */}
       </div>
-      <Card className="max-w-md px-2 py-8">
+      <Card className="px-2 py-8">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">
             Share Your Profile

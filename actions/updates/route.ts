@@ -7,8 +7,8 @@ import { JSDOM } from 'jsdom'
 import { subDays } from 'date-fns'
 import fetch from 'node-fetch'
 import { searchUserByExternalId } from '../users/searchUsers'
-import { Redis } from 'ioredis'
-import redis from '@/lib/redis'
+// import { Redis } from 'ioredis'
+// import redis from '@/lib/redis'
 
 type LinkPreview = {
     url: string;
@@ -23,6 +23,7 @@ type EnrichedUpdate = Update & {
         given_name: string | null;
         family_name: string | null;
         username: string;
+        profilePicture:string|null;
     };
 };
 
@@ -75,6 +76,7 @@ export async function getMyUpdates(page: number = 1, limit: number = 10): Promis
                     given_name: true,
                     family_name: true,
                     username: true,
+                    profilePicture:true,
                 },
             },
         },
@@ -105,6 +107,7 @@ export async function getConnectionUpdates(userId: string, connectionLevel: Leve
                     given_name: true,
                     family_name: true,
                     username: true,
+                    profilePicture:true
                 },
             },
         },
@@ -143,7 +146,7 @@ export async function getRecentUpdates(page: number = 1, limit: number = 6): Pro
 
     const sevenDaysAgo = subDays(new Date(), 7)
 
-    const viewedUpdateIds = await redis.smembers(`user:${dbUser.id}:viewed_updates`)
+    // const viewedUpdateIds = await redis.smembers(`user:${dbUser.id}:viewed_updates`)
 
     const updates = await db.update.findMany({
         where: {
@@ -159,16 +162,17 @@ export async function getRecentUpdates(page: number = 1, limit: number = 6): Pro
                     return levels.slice(0, levels.indexOf(conn.level) + 1)
                 }).flat(),
             },
-            id: {
-                notIn: viewedUpdateIds,
-            },
+            // id: {
+            //     notIn: viewedUpdateIds,
+            // },
         },
         include: {
             user: {
                 select: {
                     given_name: true,
                     family_name: true,
-                    username: true
+                    username: true,
+                    profilePicture:true,
                 },
             },
         },
@@ -182,11 +186,11 @@ export async function getRecentUpdates(page: number = 1, limit: number = 6): Pro
     return await enrichUpdatesWithLinkPreviews(updates)
 }
 
-export async function markUpdateAsViewed(userId: string, updateId: string) {
-    await redis.sadd(`user:${userId}:viewed_updates`, updateId)
-}
+// export async function markUpdateAsViewed(userId: string, updateId: string) {
+//     await redis.sadd(`user:${userId}:viewed_updates`, updateId)
+// }
 
-async function enrichUpdatesWithLinkPreviews(updates: (Update & { user: { given_name: string | null; family_name: string | null; username: string } })[]): Promise<EnrichedUpdate[]> {
+async function enrichUpdatesWithLinkPreviews(updates: (Update & { user: { given_name: string | null; family_name: string | null; username: string; profilePicture:string |null; } })[]): Promise<EnrichedUpdate[]> {
     const enrichedUpdates = await Promise.all(updates.map(async (update) => {
         const urls = extractUrls(update.content)
         const previews = await Promise.all(urls.map(getLinkPreview))
@@ -240,3 +244,35 @@ export async function getUserUpdates(username: string, page: number = 1, limit: 
 
     return updates
 }
+
+export async function getUserUpdatesByLevel(userId: string, connectionLevel: string) {
+    const level = connectionLevel.toUpperCase() as Level;
+    
+    return db.update.findMany({
+      where: {
+        userId: userId,
+        level: {
+          in: getLevelsForConnectionLevel(level),
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include:{
+        user:true
+      }
+    });
+  }
+  
+  function getLevelsForConnectionLevel(level: Level): Level[] {
+    switch (level) {
+      case 'closest':
+        return ['known', 'closer', 'closest'];
+      case 'closer':
+        return ['known', 'closer'];
+      case 'known':
+        return ['known'];
+      default:
+        return [];
+    }
+  }

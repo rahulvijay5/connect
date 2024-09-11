@@ -8,6 +8,8 @@ import { formatDistanceToNow } from "date-fns";
 import { useInView } from "react-intersection-observer";
 import { Level, Update } from "@prisma/client";
 import LinkPreview from "@/components/LinkPreview";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 type LinkPreview = {
   url: string;
@@ -28,6 +30,7 @@ export default function MyUpdates() {
   const [updates, setUpdates] = useState<EnrichedUpdate[]>([]);
   const [page, setPage] = useState(1);
   const [ref, inView] = useInView();
+  const [searching, setSearching] = useState<Boolean>(false);
 
   useEffect(() => {
     if (inView) {
@@ -53,13 +56,13 @@ export default function MyUpdates() {
                 })}
               </span>
               <Badge
-                className={
+                className={`${
                   update.level == "known"
-                    ? "bg-blue-200"
+                    ? "dark:bg-blue-200 bg-blue-600"
                     : update.level == "closer"
-                    ? "bg-yellow-200/80"
-                    : "bg-green-200"
-                }
+                    ? "dark:bg-yellow-200/80 bg-yellow-500"
+                    : "dark:bg-green-200 bg-green-600"
+                } rounded-lg cursor-none`}
               >
                 {" "}
                 Shared with {update.level}
@@ -84,7 +87,7 @@ function renderContentWithLinks(content: string) {
   const parts = content.split(urlRegex);
   return parts.map((part, index) =>
     urlRegex.test(part) ? (
-      <a
+      <Link
         key={index}
         href={part}
         target="_blank"
@@ -92,7 +95,7 @@ function renderContentWithLinks(content: string) {
         className="text-blue-500 hover:underline"
       >
         {part}
-      </a>
+      </Link>
     ) : (
       part
     )

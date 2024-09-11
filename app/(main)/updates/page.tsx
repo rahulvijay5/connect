@@ -5,6 +5,7 @@ import { Level } from "@prisma/client";
 import UpdatesTabs from "./_components/UpdatesTabs";
 import { searchUserByExternalId } from "@/actions/users/searchUsers";
 import BackButton from "@/components/BackButton";
+import MyUpdates from "./_components/MyUpdates";
 
 type Connection = {
   id: string;
@@ -13,6 +14,8 @@ type Connection = {
   user: {
     given_name: string | null;
     family_name: string | null;
+    username: string;
+    profilePicture: string | null;
   };
 };
 
@@ -34,6 +37,8 @@ export default async function UpdatesPage() {
             select: {
               given_name: true,
               family_name: true,
+              username: true,
+              profilePicture: true,
             },
           },
         },
@@ -52,17 +57,23 @@ export default async function UpdatesPage() {
     user: {
       given_name: connection.user.given_name,
       family_name: connection.user.family_name,
+      username: connection.user.username,
+      profilePicture: connection.user.profilePicture,
     },
   }));
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <BackButton showtext={true} />
-      <h1 className="text-2xl font-bold mt-2 mb-6">Updates</h1>
-      <div className="mb-8">
-        <CreateUpdate />
+    <div className=" px-4 py-8 mx-auto md:mx-0 md:max-w-4xl w-screen">
+      <div className="flex gap w-full items-center my-2 justify-start">
+        <BackButton showtext={false} />
+        <h1 className="text-2xl font-bold">Updates</h1>
       </div>
-      <UpdatesTabs connections={connections} />
+      <div className="mb-8">
+        <CreateUpdate buttonvariant={"default"} />
+      </div>
+      {/* <UpdatesTabs connections={connections} /> */}
+      <h1 className="text-xl font-bold my-6">My Updates</h1>
+      <MyUpdates />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { searchUserByExternalId } from "@/actions/users/searchUsers";
 
 export async function POST(req: NextRequest) {
-    console.log("I got heree")
+    // console.log("I got heree")
     const { getUser } = getKindeServerSession();
     const user = await getUser();
     const userexists = await searchUserByExternalId(user?.id!)
@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     }
 
     const { toUserId } = await req.json();
-    console.log(toUserId)
+    // console.log(toUserId)
 
     try {
         // Delete the connection

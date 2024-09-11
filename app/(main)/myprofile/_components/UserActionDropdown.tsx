@@ -33,7 +33,7 @@ export default function UserActionDropdown({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuItem className="cursor-pointer my-2" asChild>
-          <Link href="/myprofile/myaccount" className="flex items-center">
+          <Link href="/myprofile/edit" className="flex items-center">
             <Edit className="mr-2 h-[1.2rem] w-[1.2rem]" />
             <span>Edit Profile</span>
           </Link>

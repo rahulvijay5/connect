@@ -5,7 +5,7 @@ export const getUserConnections = async (
   userId: string
 ): Promise<Connection[]> => {
   try {
-    console.log("User Id in get user connections:", userId);
+    // console.log("User Id in get user connections:", userId);
     const connections = await db.connection.findMany({
       where: {
         userId: userId,

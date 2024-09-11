@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     }))
 
     const imageUrl = `${process.env.CLOUDFLARE_R2_PUBLIC_URL}/${fileName}`
-    console.log(imageUrl)
+    // console.log(imageUrl)
 
     // Get the current user from the database
     const dbUser = await db.user.findUnique({

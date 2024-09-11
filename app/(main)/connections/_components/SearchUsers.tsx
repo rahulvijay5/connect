@@ -54,20 +54,20 @@ const SearchUsers: React.FC<Props> = ({ currentUserID }) => {
   >("known");
   const handleConnect = async (userId: string) => {
     try {
-      console.log(
-        "From User Id: ",
-        currentUserID,
-        "To user Id: ",
-        userId,
-        "with connection level: ",
-        connectionLevel
-      );
+      // console.log(
+      //   "From User Id: ",
+      //   currentUserID,
+      //   "To user Id: ",
+      //   userId,
+      //   "with connection level: ",
+      //   connectionLevel
+      // );
       const res = await axios.post("/api/user/connectusers", {
         fromUserId: currentUserID,
         toUserId: userId,
         level: connectionLevel,
       });
-      console.log(res);
+      // console.log(res);
       // You might want to update the UI to reflect the sent request
       alert("Connection request sent!");
     } catch (error) {
@@ -80,7 +80,7 @@ const SearchUsers: React.FC<Props> = ({ currentUserID }) => {
       <div className="flex gap-2">
         <Input
           type="text"
-          placeholder="Search users by email, name, or username"
+          placeholder="Search..."
           className="p-4 rounded-md"
           value={query}
           onChange={handleInputChange}
@@ -93,8 +93,9 @@ const SearchUsers: React.FC<Props> = ({ currentUserID }) => {
       <div className="p-2 ">
         {searched && searchResults.length == 0 && (
           <div className="my-4 font-light text-yellow-200/90 text-center max-w-sm">
-            <span className="font-semibold">Uhh ohh!</span> Seems like you are
-            an introvert, don't worry make some new friends first. It's easy.
+            {/* <span className="font-semibold">Uhh ohh!</span> Seems like you are
+            an introvert, don't worry make some new friends first. It's easy. */}
+            No results found!
           </div>
         )}
         {searchResults.map((user) => (

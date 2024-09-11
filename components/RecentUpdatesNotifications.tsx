@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { toast, Toaster } from "sonner";
-import { getRecentUpdates, markUpdateAsViewed } from "@/actions/updates/route";
+import { getRecentUpdates } from "@/actions/updates/route";
+// import { markUpdateAsViewed } from "@/actions/updates/route";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -95,15 +96,16 @@ export default function RecentUpdatesNotification({
     async (update: EnrichedUpdate) => {
       if (isMinimized) return;
 
-      const handleViewUpdate = async () => {
-        await markUpdateAsViewed(userId, update.id);
-        // router.push(`/updates/${update.user.username}`);
-      };
+      // const handleViewUpdate = async () => {
+      //   // await markUpdateAsViewed(userId, update.id);
+      //   router.push(`/updates/${update.user.username}`);
+      // };
 
       toast.custom(
         (t) => (
           <div>
-            <Card onClick={handleViewUpdate}>
+            <Card>
+              {/* <Card onClick={handleViewUpdate}> */}
               <CardHeader>
                 <CardTitle className="text-sm text-gray-500 flex justify-between items-center">
                   <span>

@@ -57,7 +57,7 @@ export default function BasicInfoTab({ user }: { user: UserType }) {
       onSubmit={handleSubmit}
       className="space-y-6 md:space-y-0 md:flex md:gap-4 w-full"
     >
-      <Card className="w-full bg-slate-900/90 max-w-2xl">
+      <Card className="w-full bg-gray-50 dark:bg-slate-900/90 max-w-2xl">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">
             Basic Information
@@ -95,7 +95,7 @@ export default function BasicInfoTab({ user }: { user: UserType }) {
               className="w-full"
             />
             <p className="text-sm text-muted-foreground">
-              We'll never share your email with anyone else.
+              We&apos;ll never share your email with anyone else.
             </p>
           </div>
 
@@ -160,7 +160,7 @@ export default function BasicInfoTab({ user }: { user: UserType }) {
         </CardContent>
       </Card>
       <div>
-        <Card className="w-full bg-slate-900/90 max-w-2xl h-full">
+        <Card className="w-full bg-gray-50 dark:bg-slate-900/90 max-w-2xl h-full">
           <CardHeader>
             <CardTitle className="text-lg font-bold">Location</CardTitle>
           </CardHeader>

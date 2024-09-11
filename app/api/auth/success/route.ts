@@ -24,7 +24,7 @@ export const POST = async (req: NextRequest) => {
       id: string;
     } = user;
     const { username } = await req.json();
-    console.log(username);
+    // console.log(username);
 
     const existingUser = await db.user.findUnique({
       where: { externalId: id },

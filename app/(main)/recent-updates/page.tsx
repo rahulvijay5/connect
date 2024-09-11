@@ -69,7 +69,7 @@ export default function RecentUpdatesPage() {
 
   const renderLinkPreviews = (linkPreviews: LinkPreview[]) => {
     return linkPreviews.map((preview, index) => (
-      <a
+      <Link
         key={index}
         href={preview.url}
         target="_blank"
@@ -85,12 +85,12 @@ export default function RecentUpdatesPage() {
         )}
         <h3 className="font-semibold">{preview.title}</h3>
         <p className="text-sm text-gray-600">{preview.description}</p>
-      </a>
+      </Link>
     ));
   };
 
   return (
-    <div className="container mx-auto p-4 min-h-screen">
+    <div className="container mx-auto md:mx-0 max-w-4xl p-4 min-h-screen">
       <h1 className="text-2xl font-bold mb-4">Recent Updates</h1>
       <div className="space-y-4">
         {updates.map((update, index) => (

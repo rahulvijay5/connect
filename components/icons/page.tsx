@@ -6,7 +6,7 @@ const Logo = () => {
   return (
     <div>
       <Link href="/">
-        <p className="font-bold text-xl hover:text-sky-500 delay-100">{APPName}</p>
+        <p className="font-bold hover:text-sky-500 delay-100">{APPName}</p>
       </Link>
     </div>
   );
@@ -22,18 +22,15 @@ const TopRightIcon = () => {
         strokeWidth={1.5}
         stroke="currentColor"
         className="w-4 h-4"
-        >
+      >
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
           d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-          />
+        />
       </svg>
     </div>
   );
-  };
-  
-export {
-  Logo,
-  TopRightIcon,
-}
+};
+
+export { Logo, TopRightIcon };

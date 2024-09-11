@@ -25,14 +25,14 @@ export default function ClientPage() {
     getUserOrganizations,
   } = useKindeBrowserClient();
 
-//   console.log(getPermission("eat:chips"));
-//   console.log(getBooleanFlag("flag", false));
-//   console.log(getIntegerFlag("eat:chips", 1));
-//   console.log(getStringFlag("eat:chips", "ds"));
-//   console.log(getFlag("eat:chips", false, "b"));
+  //   console.log(getPermission("eat:chips"));
+  //   console.log(getBooleanFlag("flag", false));
+  //   console.log(getIntegerFlag("eat:chips", 1));
+  //   console.log(getStringFlag("eat:chips", "ds"));
+  //   console.log(getFlag("eat:chips", false, "b"));
 
-  console.log("accessToken", accessToken);
-  console.log(getClaim("aud"));
+  // console.log("accessToken", accessToken);
+  // console.log(getClaim("aud"));
   if (isLoading) return <div>Loading...</div>;
 
   return (

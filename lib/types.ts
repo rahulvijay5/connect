@@ -162,3 +162,16 @@ export type UserType = {
     userId: string;
   }>;
 };
+
+export interface Update {
+  id: string;
+  content: string;
+  level: string;
+  createdAt: Date;
+  user: {
+    username: string;
+    given_name: string;
+    family_name: string;
+  };
+  linkPreviews?: string[];
+}

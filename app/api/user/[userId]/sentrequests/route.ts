@@ -18,23 +18,31 @@ export async function GET(
 
     try {
         const sentRequests = await db.request.findMany({
-            where: {
-                fromUserId: params.userId,
+          where: {
+            fromUserId: params.userId,
+            status: {
+              not: "Accepted", // Exclude requests with the status "Accepted"
             },
-            include: {
-                toUser: {
-                    select: {
-                        given_name: true,
-                        email: true,
-                        username: true
-                    },
-                },
+          },
+          include: {
+            toUser: {
+              select: {
+                given_name: true,
+                email: true,
+                username: true,
+                profilePicture:true,
+              },
             },
-        })
-
-        return NextResponse.json(sentRequests)
-    } catch (error) {
-        console.error("Error fetching sent requests:", error)
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })
-    }
+          },
+        });
+      
+        return NextResponse.json(sentRequests);
+      } catch (error) {
+        console.error("Error fetching sent requests:", error);
+        return NextResponse.json(
+          { error: "Internal Server Error" },
+          { status: 500 }
+        );
+      }
+      
 }

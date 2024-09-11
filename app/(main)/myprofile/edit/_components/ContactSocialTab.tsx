@@ -125,7 +125,7 @@ export default function ContactSocialTab({ user }: { user: UserType }) {
   };
 
   return (
-    <Card className="w-full bg-slate-900/90 mx-auto pb-6">
+    <Card className="w-full bg-gray-50 dark:bg-slate-900/90 mx-auto pb-6">
       <CardHeader>
         <CardTitle className="text-2xl font-bold">
           Contact & Social Information

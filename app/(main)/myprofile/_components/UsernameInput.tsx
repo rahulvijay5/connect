@@ -36,11 +36,11 @@ const UsernameInputForm = () => {
   });
 
   const userDetails = useKindeBrowserClient();
-  const user = (userDetails.user)
-  const updateUserName = usePersonStore((state) => state.updateUserName)
-  const updateNameOfUser = usePersonStore((state) => state.updateNameOfUser)
-  const updateUserEmail = usePersonStore((state) => state.updateUserEmail)
-  const updateUserId = usePersonStore((state) => state.updateUserId)
+  const user = userDetails.user;
+  const updateUserName = usePersonStore((state) => state.updateUserName);
+  const updateNameOfUser = usePersonStore((state) => state.updateNameOfUser);
+  const updateUserEmail = usePersonStore((state) => state.updateUserEmail);
+  const updateUserId = usePersonStore((state) => state.updateUserId);
 
   async function onSubmit(username: z.infer<typeof UsernameSchema>) {
     setLoading("true");
@@ -55,15 +55,15 @@ const UsernameInputForm = () => {
     setLoading("false");
 
     if (response.ok) {
-      updateUserName(username.username)
-      updateNameOfUser(user?.given_name!)
-      updateUserEmail(user?.email!)
-      updateUserId(user?.id!)
+      updateUserName(username.username);
+      updateNameOfUser(user?.given_name!);
+      updateUserEmail(user?.email!);
+      updateUserId(user?.id!);
 
       router.push("/myprofile");
     }
 
-    console.log(username);
+    // console.log(username);
   }
 
   return (

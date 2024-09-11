@@ -18,3 +18,8 @@ shareprofile:
 
 myprofile:
     Show myprofile
+
+    --background: 222.2 84% 4.9%;
+
+    /recent-updates
+    shows all the recent updates that has been made in the last 7 days, can be modified to sort and filter too.

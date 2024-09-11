@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-// import Footer from "@/components/Footer";
+import { Footer } from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,13 +22,16 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {/* <Navbar/> */}
-          {children}
-          {/* <Footer /> */}
+          <div className="flex min-h-screen dark:bg-slate-950">
+            <main className="sm:flex-grow transition-all duration-300 ease-in-out">
+              {children}
+            </main>
+            {/* <Footer /> */}
+          </div>
           <Toaster />
         </ThemeProvider>
       </body>

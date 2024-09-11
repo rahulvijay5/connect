@@ -63,7 +63,7 @@ ConnectButtonProps) {
         level: connectionLevel,
       });
 
-      console.log("Response:", res.data);
+      // console.log("Response:", res.data);
 
       toast.success("Connection request sent!", {
         description: `You've sent a ${connectionLevel} connection request.`,
@@ -208,8 +208,8 @@ ConnectButtonProps) {
             <DialogHeader>
               <DialogTitle>Confirm Disconnection</DialogTitle>
               <DialogDescription>
-                Are you sure you want to disconnect? To connect back, you'll
-                need to send a new request.
+                Are you sure you want to disconnect? To connect back,
+                you&apos;ll need to send a new request again.
                 {/* Are you sure you want to disconnect from {userName}? To connect back, you'll need to send a new request. */}
               </DialogDescription>
             </DialogHeader>

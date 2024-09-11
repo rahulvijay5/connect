@@ -229,7 +229,7 @@ export default function InterestsSkillsTab({ user }: { user: UserType }) {
   return (
     <Card
       className="w-full mx-auto 
-bg-slate-900/90 pb-6"
+bg-gray-50 dark:bg-slate-900/90 pb-6"
     >
       <CardHeader>
         <CardTitle className="text-2xl font-bold flex items-center justify-between">

@@ -2,6 +2,7 @@
 
 import { db } from '@/lib/db'
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
+import { Level } from '@prisma/client'
 
 export async function updateProfile(formData: any) {
     const { getUser } = getKindeServerSession()

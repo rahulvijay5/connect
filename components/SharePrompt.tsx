@@ -50,7 +50,7 @@ export default function SharePrompt({
           <DialogTitle>Want to know more about @{username}</DialogTitle>
           <DialogDescription>
             Login to view more details and stay connected with @{username}.
-            Share your life's updates without any clutter or mess.
+            Share your life&apos;s updates without any clutter or mess.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
