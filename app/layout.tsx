@@ -26,7 +26,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex min-h-screen dark:bg-slate-950">
+          <div className="flex min-h-screen dark:bg-inherit">
             <main className="sm:flex-grow transition-all duration-300 ease-in-out">
               {children}
             </main>

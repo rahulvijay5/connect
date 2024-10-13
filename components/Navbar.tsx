@@ -15,7 +15,7 @@ const Navbar = async () => {
 
   const isUserAuthenticated = await isAuthenticated();
   return (
-    <div className="h-16 px-4 md:px-40 pt-2  items-center flex justify-between w-full">
+    <div className="h-16 px-4 md:px-40 pt-2 bg-gray-900  items-center flex justify-between w-full">
       <Logo />
 
       <div className="flex gap-2 justify-between items-center">

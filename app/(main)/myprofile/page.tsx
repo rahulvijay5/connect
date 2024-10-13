@@ -270,7 +270,7 @@ const MyProfile = async () => {
           </div>
         </div>
 
-        <Button asChild className="w-full p-2 mt-6">
+        <Button asChild className="w-full md:hidden` p-2 mt-6">
           <Link
             href={`/${userexists.username}/share`}
             className="flex gap-2 justify-center"

@@ -26,11 +26,12 @@ export const POST = async (req: NextRequest) => {
     const { username } = await req.json();
     // console.log(username);
 
-    const existingUser = await db.user.findUnique({
+    const dbUser = await db.user.findUnique({
       where: { externalId: id },
     });
 
-    const dp = picture || `https://api.dicebear.com/8.x/shapes/png?seed=${given_name}`
+    const dp =
+      picture || `https://api.dicebear.com/8.x/shapes/png?seed=${given_name}`;
 
     const userData = {
       externalId: id,
@@ -41,7 +42,7 @@ export const POST = async (req: NextRequest) => {
       profilePicture: dp,
     };
 
-    if (existingUser) {
+    if (dbUser) {
       await db.user.update({
         where: { externalId: id },
         data: {

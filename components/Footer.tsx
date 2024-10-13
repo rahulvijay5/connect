@@ -86,7 +86,7 @@ export function Footer() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 w-full md:px-4 right-0 bg-white dark:bg-gray-950 border-t dark:border-gray-800 transition-all duration-300 ease-in-out md:left-0 md:top-0 md:bottom-0 md:w-64 md:border-r md:border-t-0">
+    <nav className="fixed bottom-0 left-0 w-full md:px-4 right-0 bg-white dark:bg-inherit border-t dark:border-gray-800 transition-all duration-300 ease-in-out md:left-0 md:top-0 md:bottom-0 md:w-64 md:border-r md:border-t-0">
       <div className="absolute text-2xl hidden md:block top-12 w-full px-4 ">
         <Logo />
       </div>

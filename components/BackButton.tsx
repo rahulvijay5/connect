@@ -4,11 +4,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 
-export default function BackButton({
-  showtext
-}: {
-  showtext: Boolean;
-}) {
+export default function BackButton({ showtext }: { showtext: Boolean }) {
   const router = useRouter();
 
   return (

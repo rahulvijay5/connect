@@ -9,6 +9,7 @@ import { ArrowRight, Users, UserPlus, Heart } from "lucide-react";
 import { searchUserByExternalId } from "@/actions/users/searchUsers";
 import { redirect } from "next/navigation";
 import { Logo } from "@/components/icons/page";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export default async function Home() {
   const { isAuthenticated, getUser } = getKindeServerSession();
@@ -25,7 +26,7 @@ export default async function Home() {
   return (
     <>
       <Navbar />
-      <main className="flex flex-col items-center justify-center px-4 py-16">
+      <main className="flex flex-col items-center justify-center px-4 py-16 bg-gray-900">
         <div className="text-center max-w-3xl">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl mb-6">
             Connect on a Deeper Level
@@ -55,7 +56,7 @@ export default async function Home() {
             </Link>
           </div>
         </div>
-
+        {/* <BackgroundBeams className="opacity-50" /> */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16">
           <div className="flex flex-col items-center text-center">
             <Users className="h-12 w-12 text-sky-500 mb-4" />
@@ -80,10 +81,10 @@ export default async function Home() {
           </div>
         </div>
       </main>
-      <div className="px-4 md:px-40 pt-4 mt-2 gap-6 pb-10 items-start flex justify-between w-full">
+      <div className="px-4 md:px-40 bg-gray-900 pt-8 gap-6 pb-10 items-start flex justify-between w-full">
         <div className="text-xs flex flex-col gap-2">
           Join this app superfast to connect to world in its true sense.
-          <Button variant="outline" className="font-semibold w-20">
+          <Button variant="default" className="font-semibold w-20">
             <RegisterLink>Join Now</RegisterLink>
           </Button>
         </div>
