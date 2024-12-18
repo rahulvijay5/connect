@@ -7,17 +7,22 @@ import { redirect } from "next/navigation";
 const page = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-  const userexists = await searchUserByExternalId(user?.id!);
-
-  if (userexists) {
-    redirect("/connections");
+  console.log(user?.id);
+  if (user && user.id) {
+    const userexists = await searchUserByExternalId(user.id);
+    console.log(userexists);
+    if (userexists) {
+      redirect("/connections");
+    }
   } else {
-    return (
-      <div className="mfc">
-        <UsernameInputForm />
-      </div>
-    );
+    redirect("/api/auth/signin");
   }
+
+  return (
+    <div className="mfc">
+      <UsernameInputForm />
+    </div>
+  );
 };
 
 export default page;

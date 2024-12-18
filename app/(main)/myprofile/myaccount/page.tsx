@@ -136,7 +136,7 @@
 //   "facebook",
 //   "instagram",
 //   "twitter",
-//   "linkedIn",
+//   "linkedin",
 //   "gitHub",
 //   "behance",
 //   "tiktok",

@@ -8,7 +8,7 @@ import { Footer } from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Connect App",
+  title: `${process.env.APP_NAME}`,
   description: "New Gen connect platform, for all of your connections.",
 };
 

@@ -64,15 +64,6 @@ export function Footer() {
     fetchUser();
   }, [user]);
 
-  useEffect(() => {
-    const index = navItems.findIndex((item) => item.href === pathname);
-    setActiveIndex(index !== -1 ? index : 0);
-  }, [pathname]);
-
-  if (!isLoading && !profileUser) {
-    return <div>You don&apos;t have permission to share this profile.</div>;
-  }
-
   const navItems = [
     { name: "Home", href: "/", Icon: Home },
     { name: "Search", href: "/search", Icon: Search },
@@ -84,6 +75,14 @@ export function Footer() {
     },
     { name: "My Profile", href: "/myprofile", Icon: User },
   ];
+  useEffect(() => {
+    const index = navItems.findIndex((item) => item.href === pathname);
+    setActiveIndex(index !== -1 ? index : 0);
+  }, [pathname]);
+
+  if (!isLoading && !profileUser) {
+    return <div>You don&apos;t have permission to share this profile.</div>;
+  }
 
   return (
     <nav className="fixed bottom-0 left-0 w-full md:px-4 right-0 bg-white dark:bg-inherit border-t dark:border-gray-800 transition-all duration-300 ease-in-out md:left-0 md:top-0 md:bottom-0 md:w-64 md:border-r md:border-t-0">

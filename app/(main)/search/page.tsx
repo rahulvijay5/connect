@@ -13,6 +13,7 @@ import { MyConnections } from "../connections/_components/MyConnections";
 import SentRequests from "../connections/_components/SentRequests";
 import PendingRequests from "../connections/_components/PendingRequests";
 import { redirect } from "next/navigation";
+import AISearchInput from "@/components/AiSeachInput";
 
 type Connection = {
   id: string;
@@ -42,10 +43,11 @@ export default async function SearchPage() {
         <BackButton showtext={false} />
         <h1 className="text-2xl font-bold">Search Users</h1>
       </div>
-      <div className="md:flex md:flex-row-reverse md:gap-2">
+      <div className="md:flex md:flex-row-reverse md:gap-2 min-h-96">
         <div className="mb-8 md:w-1/3 sticky top-8 md:top-0 ">
           <Suspense fallback={<div>Loading search...</div>}>
             <SearchUsers currentUserID={user?.id!} />
+            {/* <AISearchInput /> */}
           </Suspense>
         </div>
         <div className="md:w-2/3 overflow-y-scroll">

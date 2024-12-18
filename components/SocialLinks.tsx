@@ -25,7 +25,7 @@ import Link from "next/link";
 type SocialLinksData = {
   facebook?: string | null;
   instagram?: string | null;
-  linkedIn?: string | null;
+  linkedin?: string | null;
   github?: string | null;
   twitter?: string | null;
   website?: string | null;
@@ -34,7 +34,7 @@ type SocialLinksData = {
   tiktok?: string | null;
   whatsapp?: string | null;
   dribbble?: string | null;
-  customLinks?: { platform: string; url: string }[];
+  customlinks?: { platform: string; url: string }[];
 };
 
 type SocialLinksProps = {
@@ -100,7 +100,7 @@ export default function SocialLinks({ links }: SocialLinksProps) {
           }
           return null;
         })}
-        {links.customLinks?.map((link, index) =>
+        {links.customlinks?.map((link, index) =>
           renderLink(link.platform, link.url)
         )}
       </TooltipProvider>

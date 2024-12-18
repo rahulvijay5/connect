@@ -234,13 +234,13 @@ bg-gray-50 dark:bg-slate-900/90 pb-6"
       <CardHeader>
         <CardTitle className="text-2xl font-bold flex items-center justify-between">
           <div>Interests, Skills, and Hobbies</div>
-          <Button
+          {/* <Button
             type="submit"
             className="hidden md:block my-6"
             variant="outline"
           >
             Update Interests, Skills, and Hobbies
-          </Button>
+          </Button> */}
         </CardTitle>
       </CardHeader>
       <CardContent>

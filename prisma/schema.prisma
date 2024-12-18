@@ -50,7 +50,7 @@ model SocialLinks {
 
   facebook    String?
   instagram   String?
-  linkedIn    String?
+  linkedin    String?
   github      String?
   twitter     String?
   website     String?
@@ -58,7 +58,7 @@ model SocialLinks {
   behance     String?
   tiktok      String?
   whatsapp    String?
-  customLinks Json?
+  customlinks Json?
 }
 
 enum Level {

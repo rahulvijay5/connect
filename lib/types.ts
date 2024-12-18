@@ -79,7 +79,7 @@ export interface Request {
 // import { Level as LevelPrisma, RequestStatus } from '@prisma/client'
 
 // types/user.ts
-import { Level, RequestStatus } from '@prisma/client'
+import { Level, RequestStatus } from "@prisma/client";
 
 export type UserType = {
   id: string;
@@ -106,7 +106,7 @@ export type UserType = {
     userId: string;
     facebook: string | null;
     instagram: string | null;
-    linkedIn: string | null;
+    linkedin: string | null;
     github: string | null;
     twitter: string | null;
     website: string | null;
@@ -114,7 +114,7 @@ export type UserType = {
     behance: string | null;
     tiktok: string | null;
     whatsapp: string | null;
-    customLinks: any; // Using 'any' for Json type, you might want to define a more specific type
+    customlinks: any; // Using 'any' for Json type, you might want to define a more specific type
   } | null;
   interests: string[];
   skills: string[];
